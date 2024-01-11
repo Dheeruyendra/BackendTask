@@ -1,4 +1,6 @@
 const PostSchema = require("../models/PostSchema.js");
+
+//create post handler
 const createPost = async (req, res) => {
   try {
     const { id, content } = req.body;
@@ -12,6 +14,7 @@ const createPost = async (req, res) => {
   }
 };
 
+//get post analysis handler
 const getPostAnalysis = async (req, res) => {
   try {
     const { id } = req.params;
@@ -23,7 +26,7 @@ const getPostAnalysis = async (req, res) => {
     const wordCount = words.length;
     const averageWordLength =
       words.reduce((total, word) => total + word.length, 0) / wordCount;
-    res.json({ wordCount, averageWordLength });
+    res.status(200).json({ wordCount, averageWordLength });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
