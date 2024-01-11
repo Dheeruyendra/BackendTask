@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');   
 const DBConnection = require('./database/db.js');
-const router = require('./routers/router.js');
+const router = require('./routes/router.js');
 
 const app = express();
 const port = 8000;
