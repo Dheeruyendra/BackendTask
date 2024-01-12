@@ -1,16 +1,14 @@
 
-Microservice-Social-Media
+# Microservice-Social-Media
 
-Installation
+## Installation
 Step-by-step guide on how to install the project.
 Clone the repository: git clone <repository-url>
 Install dependencies: npm install
 Set up the database connection by creating a .env file with appropriate credentials.
 Start the server: npm start
-Usage
-Explain how to use the project and provide examples.
 
-Endpoints
+## Endpoints
 POST /api/v1/posts
 Create a new post.
 Request
@@ -46,7 +44,8 @@ Body:
 {
   "message": "Post not found"
 }
-Dependencies
+
+## Dependencies
 Express
 Mongoose
 Redis
