@@ -5,7 +5,7 @@ const router = require('./routes/router.js');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT;
 DBConnection();
 
 //rate limiting based on IP address
@@ -14,6 +14,7 @@ const limiter = rateLimit({
     max: 100
 });
 
+//middleware
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

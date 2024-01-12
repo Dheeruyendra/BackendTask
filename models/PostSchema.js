@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+// Defining the Post schema with id and content fields
 const PostSchema = new Schema(
   {
     id: {
@@ -16,4 +17,5 @@ const PostSchema = new Schema(
   { timestamps: true }
 );
 
+// Creating and exporting the Post model based on the defined schema
 module.exports = mongoose.model("Post", PostSchema);

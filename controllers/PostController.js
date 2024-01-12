@@ -1,39 +1,43 @@
 const PostSchema = require("../models/PostSchema.js");
+const { analyzePostContent } = require("../service/PostAnalysisService.js");
 
-//create post handler
+//Handler for creating a new post
 const createPost = async (req, res) => {
-  try {
-    const { id, content } = req.body;
-    const newPost = new PostSchema({ id, content });
-    await newPost.save();
+    try {
+        //Extracting id and content from the request body
+        const { id, content } = req.body;
 
-    res.status(201).json({ message: "Post created successfully" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
+        //Creating a new post instance using the PostSchema
+        const newPost = new PostSchema({ id, content });
+        //Saving the post to the database
+        await newPost.save();
+
+        res.status(201).json({ message: "Post created successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 };
 
-//get post analysis handler
+//Handler for getting analysis of a post
 const getPostAnalysis = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const post = await PostSchema.findOne({id});
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+    try {
+        const { id } = req.params;
+        //Finding the post in the database using the id
+        const post = await PostSchema.findOne({ id });
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        //Analyzing the post content using the PostAnalysisService
+        const analysisResult = analyzePostContent(post.content);
+        res.status(200).json(analysisResult);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-    const words = post.content.split(" ");
-    const wordCount = words.length;
-    const averageWordLength =
-      words.reduce((total, word) => total + word.length, 0) / wordCount;
-    res.status(200).json({ wordCount, averageWordLength });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
 };
 
 module.exports = {
-  createPost,
-  getPostAnalysis,
+    createPost,
+    getPostAnalysis,
 };
