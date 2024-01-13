@@ -8,8 +8,9 @@
 4. Set up the database connection by creating a .env file with appropriate credentials.
 5. Start the server: npm start
 
-## Endpoints
-### POST /api/v1/posts
+## Overview
+### EndPoints
+#### POST /api/v1/posts
 - Create a new post.
 - Request
 - Method: POST
@@ -30,7 +31,7 @@ Status: 201 Created
   "message": "Post created successfully"
 }
 ```````
-### GET /api/v1/posts/:id/analysis
+#### GET /api/v1/posts/:id/analysis
 - Get analysis of a post.
 - Request
 - Method: GET
@@ -52,6 +53,14 @@ Status: 404 Not Found
   "message": "Post not found"
 }
 `````
+### Rate-Limiting
+- Implemented rate limiter for the endpoints to control the number of GET and POST requests.
+- Current limit 150 requests per 15 minutes for each unique IP address.
+
+### Caching Mechanism
+- Employed Redis to cache frequently accessed data, thereby decreasing response times and alleviating database load.
+- Devised caching strategies to efficiently store and retrieve data, consequently boosting the system's overall performance.
+
 ## Dependencies
 - Express
 - Mongoose
