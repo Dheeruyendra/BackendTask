@@ -10,7 +10,6 @@ redisClient.connect().catch(console.error);
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));
 
-
 //Handler for creating a new post
 const createPost = async (req, res) => {
     try {
@@ -21,7 +20,6 @@ const createPost = async (req, res) => {
         const newPost = new PostSchema({ id, content });
         //Saving the post to the database
         await newPost.save();
-        await redisClient.set(id, JSON.stringify(newPost));
 
         res.status(201).json({ message: "Post created successfully" });
     } catch (error) {
